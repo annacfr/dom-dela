@@ -1,1 +1,44 @@
-.task-card{background:var(--paper);border:1px solid var(--line);border-radius:19px;padding:16px;display:flex;gap:13px;min-width:0;box-shadow:0 6px 17px rgba(79,64,48,.04);transition:transform .2s,box-shadow .2s}.task-card:hover{transform:translateY(-2px);box-shadow:var(--shadow)}.task-card.completed{animation:finish .6s ease}.task-icon{width:46px;height:46px;border-radius:14px;background:#edf0e2;color:#688162;display:grid;place-items:center;flex:none;font-size:1.5rem}.task-body{min-width:0;flex:1}.task-top{display:flex;justify-content:space-between;align-items:start;gap:10px}.task-top h3{margin:2px 0 5px;overflow-wrap:anywhere}.task-top strong{color:var(--clay-dark);font-size:.9rem;white-space:nowrap}.task-body p{margin:0;color:var(--muted);font-size:.79rem}.task-meta{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 0}.task-meta span{padding:5px 8px;border-radius:8px;background:#f2ebdf;font-size:.7rem;color:#655f55}.task-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:9px}.task-actions .text-button{font-size:.78rem}.tasks-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.filter-row{display:flex;align-items:center;justify-content:space-between;gap:12px}.tabs{display:flex;gap:5px;overflow-x:auto;max-width:100%;padding:4px;background:#eee5d7;border-radius:14px;scrollbar-width:thin}.tabs button{border:0;background:transparent;color:#756d62;border-radius:11px;min-height:38px;padding:8px 13px;font-weight:700;font-size:.78rem;white-space:nowrap}.tabs button.selected{background:var(--paper);color:var(--ink);box-shadow:0 2px 8px #58443014}.filter-row select{min-width:150px}.stat-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin:24px 0}.stat-tile{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:19px;display:flex;flex-direction:column;gap:8px}.stat-tile strong{font-size:1.8rem;letter-spacing:-.04em;color:#3f5f4c}.stat-tile span{font-size:.76rem;color:var(--muted)}.stats-panels{display:grid;grid-template-columns:1fr 1fr;gap:16px}.bars{display:grid;gap:14px}.bar-label{display:flex;justify-content:space-between;font-size:.8rem;gap:8px}.bar-track{height:9px;border-radius:9px;background:#eee8db;overflow:hidden;margin-top:7px}.bar-track div{height:100%;border-radius:9px;background:#9aae94}.member-load{border-top:1px solid var(--line);padding-top:14px;margin-top:14px}.person-line{display:flex;align-items:center;gap:12px;min-height:52px}.person-line strong{flex:1}.person-line>span:last-child{color:var(--muted);font-size:.78rem}.member-load .bars{margin-left:48px}.member-load .bar-track{height:6px}.activity-list{display:grid;gap:10px}.activity{display:flex;align-items:center;gap:15px;background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:15px}.activity.unread{border-color:#b8c8af}.activity-mark{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;background:#e7ecdf;color:#6c8469;flex:none}.activity div{flex:1}.activity p{margin:0 0 3px}.activity small{color:var(--muted)}@keyframes finish{50%{box-shadow:0 0 0 8px #bcd0aa88}}
+.task-card{background:var(--paper);border:1px solid var(--line);border-radius:19px;padding:16px;display:flex;gap:13px;min-width:0;box-shadow:0 6px 17px rgba(79,64,48,.04);transition:transform .2s,box-shadow .2s}
+.task-card:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.task-card.completed{animation:finish .6s ease}
+.task-icon{width:46px;height:46px;border-radius:14px;background:#edf0e2;color:#688162;display:grid;place-items:center;flex:none;font-size:1.5rem}
+.task-body{min-width:0;flex:1}
+.task-top{display:flex;justify-content:space-between;align-items:start;gap:10px}
+.task-top h3{margin:2px 0 5px;overflow-wrap:anywhere}
+.task-top strong{color:var(--clay-dark);font-size:.9rem;white-space:nowrap}
+.task-body p{margin:0;color:var(--muted);font-size:.79rem}
+.task-meta{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 0}
+.task-meta span{padding:5px 8px;border-radius:8px;background:#f2ebdf;font-size:.7rem;color:#655f55}
+.task-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:9px}
+.task-actions .text-button{font-size:.78rem}
+.tasks-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.filter-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.tabs{display:flex;gap:5px;overflow-x:auto;max-width:100%;padding:4px;background:#eee5d7;border-radius:14px;scrollbar-width:thin}
+.tabs button{border:0;background:transparent;color:#756d62;border-radius:11px;min-height:38px;padding:8px 13px;font-weight:700;font-size:.78rem;white-space:nowrap}
+.tabs button.selected{background:var(--paper);color:var(--ink);box-shadow:0 2px 8px #58443014}
+.filter-row select{min-width:150px}
+.stat-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin:24px 0}
+.stat-tile{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:19px;display:flex;flex-direction:column;gap:8px}
+.stat-tile strong{font-size:1.8rem;letter-spacing:-.04em;color:#3f5f4c}
+.stat-tile span{font-size:.76rem;color:var(--muted)}
+.stats-panels{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.bars{display:grid;gap:14px}
+.bar-label{display:flex;justify-content:space-between;font-size:.8rem;gap:8px}
+.bar-track{height:9px;border-radius:9px;background:#eee8db;overflow:hidden;margin-top:7px}
+.bar-track div{height:100%;border-radius:9px;background:#9aae94}
+.member-load{border-top:1px solid var(--line);padding-top:14px;margin-top:14px}
+.person-line{display:flex;align-items:center;gap:12px;min-height:52px}
+.person-line strong{flex:1}
+.person-line>span:last-child{color:var(--muted);font-size:.78rem}
+.member-load .bars{margin-left:48px}
+.member-load .bar-track{height:6px}
+.activity-list{display:grid;gap:10px}
+.activity{display:flex;align-items:center;gap:15px;background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:15px}
+.activity.unread{border-color:#b8c8af}
+.activity-mark{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;background:#e7ecdf;color:#6c8469;flex:none}
+.activity div{flex:1}
+.activity p{margin:0 0 3px}
+.activity small{color:var(--muted)}
+@keyframes finish{50%{box-shadow:0 0 0 8px #bcd0aa88}
+}
+
