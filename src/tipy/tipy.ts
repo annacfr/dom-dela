@@ -1,0 +1,12 @@
+export type Rol = 'adult' | 'child';
+export type Status = 'active' | 'reserved' | 'doing' | 'done' | 'archived';
+export type Povtor = 'none' | 'daily' | 'weekly' | 'weekdays' | 'custom';
+export type Chelovek = { id: string; name: string; role: Rol; avatar: string; familyId?: string; hash?: string };
+export type Semya = { id: string; name: string; code: string; mood: string };
+export type Zadacha = { id: string; familyId: string; title: string; description: string; category: string; date: string; time: string; deadline: string; repeat: Povtor; days?: number[]; rotate?: boolean; priority: string; urgent: boolean; points: number; assignees: string[] | 'all' | 'open'; status: Status; reservedBy?: string; reservedUntil?: string; startedAt?: string; completedAt?: string; completedBy?: string; duration?: number; parentId?: string };
+export type Sobytie = { id: string; familyId: string; title: string; date: string; time: string; type: string; memberId?: string };
+export type Soobshenie = { id: string; familyId: string; userId?: string; text: string; at: string; taskId?: string };
+export type Zapis = { id: string; familyId?: string; type: string; text: string; at: string; userId?: string; archived?: boolean };
+export type Uvedomlenie = { id: string; familyId?: string; taskId?: string; text: string; at: string; userId?: string; read: boolean; type: string };
+export type Zapros = { id: string; userId: string; familyId: string; at: string };
+export type Dannye = { users: Chelovek[]; families: Semya[]; tasks: Zadacha[]; events: Sobytie[]; messages: Soobshenie[]; history: Zapis[]; notifications: Uvedomlenie[]; requests: Zapros[]; currentUserId?: string; settings: { reminders: boolean } };

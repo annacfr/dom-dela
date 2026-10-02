@@ -1,0 +1,11 @@
+import { useSyncExternalStore } from 'react';
+import type { Dannye } from '../tipy/tipy';
+import { primer } from '../dannye/primer';
+const KEY = 'dom-dela-demo-v1';
+const read = (): Dannye => { try { return JSON.parse(localStorage.getItem(KEY) || 'null') || primer(); } catch { return primer(); } };
+let current = read();
+const listeners = new Set<() => void>();
+export const getData = () => current;
+export const setData = (change: (data: Dannye) => Dannye) => { current = change(current); localStorage.setItem(KEY, JSON.stringify(current)); listeners.forEach(fn => fn()); };
+export const useData = () => useSyncExternalStore(fn => { listeners.add(fn); return () => listeners.delete(fn); }, getData);
+export const resetDemo = () => { current = primer(); localStorage.setItem(KEY, JSON.stringify(current)); listeners.forEach(fn => fn()); };

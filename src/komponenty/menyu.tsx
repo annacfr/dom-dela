@@ -1,0 +1,4 @@
+import { NavLink } from 'react-router-dom';
+import { Ikonka } from './ikonka';
+const links = [{ to: '/', icon: 'home', text: 'Главная' }, { to: '/zadachi', icon: 'tasks', text: 'Задачи' }, { to: '/kalendar', icon: 'calendar', text: 'Календарь' }, { to: '/chat', icon: 'chat', text: 'Чат' }, { to: '/profil', icon: 'profile', text: 'Профиль' }];
+export function Menyu() { return <nav className="menu" aria-label="Основное меню"><div className="brand">⌂ <span>Дом дела</span></div>{links.map(l => <NavLink key={l.to} to={l.to} end={l.to === '/'} className={({ isActive }) => `menu-link ${isActive ? 'active' : ''}`}><Ikonka name={l.icon} /><span>{l.text}</span></NavLink>)}<NavLink to="/statistika" className={({ isActive }) => `menu-link desktop-link ${isActive ? 'active' : ''}`}><Ikonka name="stats" /><span>Статистика</span></NavLink></nav>; }

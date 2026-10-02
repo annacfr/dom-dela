@@ -1,0 +1,13 @@
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import App from './App';
+import './stili/osnova.css';
+import './stili/maket.css';
+import './stili/kartochki.css';
+import './stili/formy.css';
+import './stili/dom.css';
+import './stili/kalendar.css';
+import './stili/chat.css';
+import './stili/adaptiv.css';
+createRoot(document.getElementById('root')!).render(<React.StrictMode><App /></React.StrictMode>);
+if ('serviceWorker' in navigator && import.meta.env.PROD) window.addEventListener('load', () => navigator.serviceWorker.register(`${import.meta.env.BASE_URL}sw.js`));
