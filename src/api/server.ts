@@ -11,10 +11,16 @@ export async function api<T = unknown>(path: string, options: ApiOptions = {}): 
   const headers: Record<string, string> = {};
   if (options.body !== undefined) headers['Content-Type'] = 'application/json';
   if (method !== 'GET' && !['/api/login', '/api/register'].includes(path) && csrf) headers['X-CSRF-Token'] = csrf;
-  const response = await fetch(apiRoot + path, {
-    method, headers, credentials: 'include',
-    body: options.body === undefined ? undefined : JSON.stringify(options.body),
-  });
+  let response: Response;
+  try {
+    response = await fetch(apiRoot + path, {
+      method, headers, credentials: 'include',
+      body: options.body === undefined ? undefined : JSON.stringify(options.body),
+    });
+  } catch (error) {
+    const reason = error instanceof Error ? ` (${error.message})` : '';
+    throw new Error(`Не удалось подключиться к API ${apiRoot}. Проверьте APP_ORIGIN на PHP-сервере, адрес VITE_API_URL и доступ телефона к локальной сети${reason}`);
+  }
   const result = await response.json().catch(() => ({})) as { error?: string; csrf?: string };
   if (!response.ok) throw new Error(result.error || 'Ошибка сервера (' + response.status + ')');
   if (result.csrf) csrf = result.csrf;
