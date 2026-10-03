@@ -3,7 +3,13 @@ declare(strict_types=1);
 require_once __DIR__ . '/proverkiZadachi.php';
 if ($path === 'api/tasks' && $method === 'GET') {
   $fid = family(); expire_reservations($fid);
-  answer(many('SELECT t.*,GROUP_CONCAT(ta.user_id) AS assignees FROM tasks t LEFT JOIN task_assignments ta ON ta.task_id=t.id WHERE t.family_id=? GROUP BY t.id ORDER BY t.task_date,t.task_time', [$fid]));
+  answer(many("SELECT t.*,GROUP_CONCAT(DISTINCT ta.user_id) AS assignees,
+    (SELECT tr.user_id FROM task_reservations tr WHERE tr.task_id=t.id AND tr.outcome='active' AND tr.expires_at>NOW() ORDER BY tr.id DESC LIMIT 1) AS active_user_id,
+    (SELECT tr.expires_at FROM task_reservations tr WHERE tr.task_id=t.id AND tr.outcome='active' AND tr.expires_at>NOW() ORDER BY tr.id DESC LIMIT 1) AS reservation_expires,
+    (SELECT rt.frequency FROM recurring_tasks rt WHERE rt.task_id=t.id AND rt.active=1 LIMIT 1) AS repeat_frequency,
+    (SELECT rt.week_days FROM recurring_tasks rt WHERE rt.task_id=t.id AND rt.active=1 LIMIT 1) AS week_days,
+    EXISTS(SELECT 1 FROM recurring_tasks rt JOIN duty_rotations dr ON dr.recurring_task_id=rt.id WHERE rt.task_id=t.id) AS rotate
+    FROM tasks t LEFT JOIN task_assignments ta ON ta.task_id=t.id WHERE t.family_id=? GROUP BY t.id ORDER BY t.task_date,t.task_time", [$fid]));
 }
 if ($path === 'api/tasks' && $method === 'POST') {
   $uid = adult(); $fid = family(); $data = body(); [$title,$description,$category,$date,$time,$deadline,$priority,$urgent,$points,$mode,$assignees] = task_input($data,$fid);
@@ -21,6 +27,12 @@ if (preg_match('~^api/tasks/(\d+)$~', $path, $m)) {
     $data = body(); [$title,$description,$category,$date,$time,$deadline,$priority,$urgent,$points,$mode,$assignees] = task_input($data,$fid);
     db()->beginTransaction(); run('UPDATE tasks SET title=?,description=?,category=?,task_date=?,task_time=?,deadline=?,priority=?,urgent=?,base_points=?,assignee_mode=? WHERE id=?', [$title,$description,$category,$date,$time,$deadline,$priority,$urgent,$points,$mode,$task['id']]);
     run('DELETE FROM task_assignments WHERE task_id=?',[$task['id']]); if ($mode === 'members') foreach ($assignees as $member) run('INSERT INTO task_assignments(task_id,user_id) VALUES(?,?)',[$task['id'],(int)$member]);
+    $repeat = $data['repeat'] ?? 'none'; $days = $data['days'] ?? [];
+    $recurring = one('SELECT id FROM recurring_tasks WHERE task_id=? ORDER BY id LIMIT 1',[$task['id']]);
+    if ($repeat === 'none') { if ($recurring) run('UPDATE recurring_tasks SET active=0 WHERE id=?',[$recurring['id']]); }
+    elseif ($recurring) { run('UPDATE recurring_tasks SET frequency=?,week_days=?,next_date=?,active=1 WHERE id=?',[$repeat,implode(',',array_map('intval',$days)),$date,$recurring['id']]); }
+    else { run('INSERT INTO recurring_tasks(task_id,frequency,week_days,next_date) VALUES(?,?,?,?)',[$task['id'],$repeat,implode(',',array_map('intval',$days)),$date]); $recurring=['id'=>(int)db()->lastInsertId()]; }
+    if ($recurring && $repeat !== 'none') { run('DELETE FROM duty_rotations WHERE recurring_task_id=?',[$recurring['id']]); if (!empty($data['rotate']) && $mode === 'members') { $all=many('SELECT user_id FROM family_members WHERE family_id=? ORDER BY joined_at,user_id',[$fid]); foreach ($all as $position=>$member) run('INSERT INTO duty_rotations(recurring_task_id,user_id,position) VALUES(?,?,?)',[$recurring['id'],$member['user_id'],$position]); } }
     log_event($fid,(int)$task['id'],$uid,'edited','Задача изменена: '.$title); notice($fid,'changed','Изменена задача: '.$title); db()->commit(); answer(['ok'=>true]);
   }
   if ($method === 'DELETE') { adult(); if ($task['status'] !== 'active') fail('Задачу сейчас нельзя архивировать.'); run("UPDATE tasks SET status='archived' WHERE id=?",[$task['id']]); log_event($fid,(int)$task['id'],$uid,'cancelled','Задача архивирована'); notice($fid,'cancelled','Задача отменена'); answer(['ok'=>true]); }

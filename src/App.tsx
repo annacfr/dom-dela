@@ -1,5 +1,7 @@
 import { HashRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { useEffect } from 'react';
 import { useData } from './api/khranilishche';
+import { refreshServerData, serverConfigured } from './api/server';
 import { Obolochka } from './komponenty/obolochka';
 import { Vhod } from './stranitsy/vhod';
 import { Registratsiya } from './stranitsy/registratsiya';
@@ -16,6 +18,13 @@ import { Uvedomleniya } from './stranitsy/uvedomleniya';
 import { Istoriya } from './stranitsy/istoriya';
 export default function App() {
   const data = useData(), user = data.users.find(u => u.id === data.currentUserId);
+  useEffect(() => {
+    if (!serverConfigured || !user) return;
+    const refresh = () => { if (document.visibilityState === 'visible') void refreshServerData().catch(error => console.error('Не удалось обновить данные с сервера', error)); };
+    const timer = window.setInterval(refresh, 10_000);
+    window.addEventListener('focus', refresh);
+    return () => { window.clearInterval(timer); window.removeEventListener('focus', refresh); };
+  }, [user?.id]);
   return <HashRouter><Routes>
     <Route path="/vhod" element={user ? <Navigate to="/" /> : <Vhod />} />
     <Route path="/registratsiya" element={user ? <Navigate to="/nastroyka" /> : <Registratsiya />} />

@@ -23,6 +23,19 @@ npm run dev
 
 Создайте базу командой `mysql -u root -p < backend/schema.sql`. Настройте переменные `DB_HOST`, `DB_NAME`, `DB_USER`, `DB_PASS`, затем запустите `php -S localhost:8000 -t backend/public backend/public/index.php`. Маршруты JSON API начинаются с `/api/`; после входа используйте сессионную cookie и заголовок `X-CSRF-Token`, выданный `/api/login` или `/api/auth/me`. Backend содержит регистрацию, авторизацию, семейные запросы, задачи, резервы, баллы, события, сообщения и уведомления. Публичный сайт GitHub Pages работает в локальном демо-режиме: GitHub Pages не исполняет PHP и не предоставляет MySQL.
 
+### Подключение интерфейса к API
+
+Скопируйте `.env.example` в `.env.local` в корне проекта. Для локального API оставьте `VITE_API_URL=http://localhost:8000`. После этого перезапустите Vite. При заданном `VITE_API_URL` регистрация, вход, семьи, задачи и остальные загружаемые разделы используют PHP API и MySQL; демо-кнопки скрыты. Без этой переменной сайт остаётся в локальном демо-режиме.
+
+При запуске PHP установите разрешённый адрес интерфейса. Для PowerShell:
+
+```powershell
+$env:APP_ORIGIN = "http://localhost:5173"
+C:\xampp\php\php.exe -S localhost:8000 -t backend/public backend/public/index.php
+```
+
+На production настройте `APP_ORIGIN` на точный HTTPS-адрес интерфейса, а `VITE_API_URL` — на HTTPS-адрес API. По возможности разместите интерфейс и API на одном сайте или соседних поддоменах. Если API находится на другом сайте, задайте `SESSION_SAMESITE=None` и оставьте HTTPS включённым. Не публикуйте логин и пароль базы данных в репозитории. Для общей работы устройств сервер должен быть доступен через интернет; локальный XAMPP доступен только на компьютере, где запущен.
+
 ## Публикация
 
 Workflow `.github/workflows/pages.yml` собирает frontend при push в `main` и публикует `dist` через GitHub Pages. В настройках репозитория Pages источником должен быть выбран GitHub Actions. Адрес сайта: `https://annacfr.github.io/dom-dela/`.

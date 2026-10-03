@@ -7,8 +7,9 @@ function task_input(array $data, int $family): array {
   $mode = required($data,'assignee_mode',10); if (!in_array($mode,['members','all','open'],true)) fail('Некорректный исполнитель.');
   $points = (int)($data['points'] ?? 10); if ($points < 1 || $points > 500) fail('Баллы: от 1 до 500.');
   $priority = (string)($data['priority'] ?? 'normal'); if (!in_array($priority,['low','normal','high'],true)) fail('Некорректный приоритет.');
+  $repeat = (string)($data['repeat'] ?? 'none'); if (!in_array($repeat,['none','daily','weekly','weekdays','custom'],true)) fail('Некорректное повторение.');
   $assignees = $data['assignees'] ?? []; if (!is_array($assignees)) fail('Некорректные исполнители.');
-  if (($data['repeat'] ?? 'none') === 'custom' && (!is_array($data['days'] ?? null) || !$data['days'] || count(array_filter($data['days'], fn($day) => is_numeric($day) && (int)$day >= 0 && (int)$day <= 6)) !== count($data['days']))) fail('Выберите дни повтора.');
+  if ($repeat === 'custom' && (!is_array($data['days'] ?? null) || !$data['days'] || count(array_filter($data['days'], fn($day) => is_numeric($day) && (int)$day >= 0 && (int)$day <= 6)) !== count($data['days']))) fail('Выберите дни повтора.');
   if ($mode === 'members') { if (!$assignees) fail('Выберите исполнителя.'); foreach ($assignees as $id) if (!one('SELECT 1 FROM family_members WHERE family_id=? AND user_id=?', [$family,(int)$id])) fail('Исполнитель не в семье.'); }
   return [$title,trim((string)($data['description'] ?? '')),$category,$date,$time,$deadline,$priority,(int)!empty($data['urgent']),$points,$mode,$assignees];
 }

@@ -3,7 +3,7 @@ declare(strict_types=1);
 if ($path === 'api/family' && $method === 'GET') {
   $fid = family(); $result = one('SELECT f.id,f.name,f.invite_code,fs.mood FROM families f LEFT JOIN family_state fs ON fs.family_id=f.id WHERE f.id=?', [$fid]);
   $result['members'] = many('SELECT u.id,u.name,u.role,u.avatar FROM users u JOIN family_members fm ON fm.user_id=u.id WHERE fm.family_id=?', [$fid]);
-  $result['requests'] = many("SELECT jr.id,u.name,u.role,jr.created_at FROM join_requests jr JOIN users u ON u.id=jr.user_id WHERE jr.family_id=? AND jr.status='pending'", [$fid]); answer($result);
+  $result['requests'] = many("SELECT jr.id,jr.user_id,u.name,u.role,jr.created_at FROM join_requests jr JOIN users u ON u.id=jr.user_id WHERE jr.family_id=? AND jr.status='pending'", [$fid]); answer($result);
 }
 if ($path === 'api/family' && $method === 'POST') {
   $uid = adult(); if (one('SELECT 1 FROM family_members WHERE user_id=?', [$uid])) fail('Вы уже состоите в семье.');
