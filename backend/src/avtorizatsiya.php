@@ -17,4 +17,10 @@ if ($path === 'api/auth/me' && $method === 'GET') {
   $user = one('SELECT u.id,u.name,u.role,u.avatar,fm.family_id FROM users u LEFT JOIN family_members fm ON fm.user_id=u.id WHERE u.id=?', [auth()]);
   $_SESSION['csrf'] ??= bin2hex(random_bytes(24)); answer(['user' => $user, 'csrf' => $_SESSION['csrf']]);
 }
+if ($path === 'api/profile' && $method === 'PATCH') {
+  $uid = auth(); $data = body(); $name = required($data, 'name', 80); $avatar = required($data, 'avatar', 8);
+  if (mb_strlen($name) < 2) fail('Имя должно содержать не менее двух символов.');
+  if (one('SELECT id FROM users WHERE name=? AND id<>?', [$name,$uid])) fail('Имя уже занято.', 409);
+  run('UPDATE users SET name=?,avatar=? WHERE id=?', [$name,$avatar,$uid]); answer(['ok'=>true]);
+}
 fail('Маршрут не найден.', 404);
