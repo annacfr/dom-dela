@@ -92,7 +92,10 @@ export async function refreshServerData(): Promise<void> {
 export async function restoreServerSession(): Promise<void> {
   if (!serverConfigured) return;
   try { await refreshServerData(); }
-  catch { replaceData({ users: [], families: [], tasks: [], events: [], messages: [], history: [], notifications: [], requests: [], settings: { reminders: true } }); }
+  catch (error) {
+    replaceData({ users: [], families: [], tasks: [], events: [], messages: [], history: [], notifications: [], requests: [], settings: { reminders: true } });
+    console.info('Серверная сессия не восстановлена:', error instanceof Error ? error.message : error);
+  }
 }
 
 export function reportServerError(error: unknown): void {

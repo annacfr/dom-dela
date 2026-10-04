@@ -18,13 +18,14 @@ import { Uvedomleniya } from './stranitsy/uvedomleniya';
 import { Istoriya } from './stranitsy/istoriya';
 export default function App() {
   const data = useData(), user = data.users.find(u => u.id === data.currentUserId);
+  const userId = user?.id;
   useEffect(() => {
-    if (!serverConfigured || !user) return;
+    if (!serverConfigured || !userId) return;
     const refresh = () => { if (document.visibilityState === 'visible') void refreshServerData().catch(error => console.error('Не удалось обновить данные с сервера', error)); };
     const timer = window.setInterval(refresh, 10_000);
     window.addEventListener('focus', refresh);
     return () => { window.clearInterval(timer); window.removeEventListener('focus', refresh); };
-  }, [user?.id]);
+  }, [userId]);
   return <HashRouter><Routes>
     <Route path="/vhod" element={user ? <Navigate to="/" /> : <Vhod />} />
     <Route path="/registratsiya" element={user ? <Navigate to="/nastroyka" /> : <Registratsiya />} />
