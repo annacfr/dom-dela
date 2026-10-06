@@ -26,17 +26,28 @@ export default function App() {
     window.addEventListener('focus', refresh);
     return () => { window.clearInterval(timer); window.removeEventListener('focus', refresh); };
   }, [userId]);
+
+  if (!user) {
+    return <HashRouter><Routes>
+      <Route path="/registratsiya" element={<Registratsiya />} />
+      <Route path="*" element={<Vhod />} />
+    </Routes></HashRouter>;
+  }
+
+  if (!user.familyId) {
+    return <HashRouter><Routes>
+      <Route path="*" element={<Nastroyka />} />
+    </Routes></HashRouter>;
+  }
+
   return <HashRouter><Routes>
-    <Route path="/vhod" element={user ? <Navigate to="/" /> : <Vhod />} />
-    <Route path="/registratsiya" element={user ? <Navigate to="/nastroyka" /> : <Registratsiya />} />
-    {!user ? <Route path="*" element={<Navigate to="/vhod" />} /> : !user.familyId ? <><Route path="/nastroyka" element={<Nastroyka />} /><Route path="*" element={<Navigate to="/nastroyka" />} /></> :
-      <Route element={<Obolochka />}>
-        <Route index element={<Glavnaya />} /><Route path="zadachi" element={<Zadachi />} />
-        <Route path="zadachi/novaya" element={<FormaZadachi />} /><Route path="zadachi/:id/pravka" element={<FormaZadachi />} />
-        <Route path="kalendar" element={<Kalendar />} /><Route path="statistika" element={<Statistika />} />
-        <Route path="chat" element={<Chat />} /><Route path="profil" element={<Profil />} />
-        <Route path="semya" element={<Semya />} /><Route path="uvedomleniya" element={<Uvedomleniya />} />
-        <Route path="istoriya" element={<Istoriya />} /><Route path="*" element={<Navigate to="/" />} />
-      </Route>}
+    <Route element={<Obolochka />}>
+      <Route index element={<Glavnaya />} /><Route path="zadachi" element={<Zadachi />} />
+      <Route path="zadachi/novaya" element={<FormaZadachi />} /><Route path="zadachi/:id/pravka" element={<FormaZadachi />} />
+      <Route path="kalendar" element={<Kalendar />} /><Route path="statistika" element={<Statistika />} />
+      <Route path="chat" element={<Chat />} /><Route path="profil" element={<Profil />} />
+      <Route path="semya" element={<Semya />} /><Route path="uvedomleniya" element={<Uvedomleniya />} />
+      <Route path="istoriya" element={<Istoriya />} /><Route path="*" element={<Navigate to="/" />} />
+    </Route>
   </Routes></HashRouter>;
 }

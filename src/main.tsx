@@ -17,13 +17,21 @@ createRoot(root).render(<React.StrictMode><App /></React.StrictMode>);
 void restoreServerSession();
 
 if ('serviceWorker' in navigator) {
+  const serviceWorker = navigator.serviceWorker;
+
   if (import.meta.env.PROD) {
-    window.addEventListener('load', () => navigator.serviceWorker.register(`${import.meta.env.BASE_URL}sw.js`));
-  } else {
-    void navigator.serviceWorker.getRegistrations().then(registrations => Promise.all(
+    window.addEventListener('load', () => {
+      void serviceWorker.register(`${import.meta.env.BASE_URL}sw.js`).catch(error => {
+        console.error('Не удалось зарегистрировать service worker', error);
+      });
+    });
+  } else if (typeof serviceWorker.getRegistrations === 'function') {
+    void serviceWorker.getRegistrations().then(registrations => Promise.all(
       registrations
         .filter(registration => registration.scope.startsWith(window.location.origin))
         .map(registration => registration.unregister()),
-    ));
+    )).catch(error => {
+      console.warn('Не удалось удалить старый service worker', error);
+    });
   }
 }
