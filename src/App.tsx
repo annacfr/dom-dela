@@ -6,6 +6,7 @@ import { vyhod } from './api/uchetnyeZapisi';
 import { useEffect } from 'react';
 import { Obolochka } from './komponenty/obolochka';
 import { Vhod } from './stranitsy/vhod';
+import { ProbaVhoda } from './stranitsy/probaVhoda';
 import { Registratsiya } from './stranitsy/registratsiya';
 import { Nastroyka } from './stranitsy/nastroyka';
 import { Glavnaya } from './stranitsy/glavnaya';
@@ -23,6 +24,7 @@ export default function App() {
   useEffect(() => { void nachatOblako(); }, []);
   if (status.loading) return <div className="setup" role="status">Загружаем семейный дом…</div>;
   return <HashRouter>{status.error && <div className="cloud-error" role="alert">{status.error} <button onClick={() => void obnovitOblako()}>Повторить</button>{status.cloud && <button onClick={() => void vyhod()}>Выйти</button>}</div>}<Routes>
+    <Route path="/proba-vhoda" element={<ProbaVhoda />} />
     <Route path="/vhod" element={user ? <Navigate to="/" /> : <Vhod />} />
     <Route path="/registratsiya" element={user ? <Navigate to="/nastroyka" /> : <Registratsiya />} />
     {!user ? <Route path="*" element={<Navigate to="/vhod" />} /> : !user.familyId ? <><Route path="/nastroyka" element={<Nastroyka />} /><Route path="*" element={<Navigate to="/nastroyka" />} /></> :

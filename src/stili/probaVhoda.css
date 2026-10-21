@@ -1,0 +1,29 @@
+.pv-page{--pv-ink:#143238;--pv-milk:#f4f1e8;--pv-fog:#a9bdb7;--pv-sage:#648178;min-height:100dvh;position:relative;isolation:isolate;overflow:hidden;background:#6d8884;color:var(--pv-ink)}
+.pv-scenery{position:absolute;inset:0;z-index:-2;background:url('../assets/lesnoyPeyzazh.jpg') center 56%/cover no-repeat}
+.pv-page:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,#f6f2e65c 0%,#f1efe71c 34%,#092d3694 100%)}
+.pv-shell{width:min(100%,1180px);min-height:100dvh;margin:auto;padding:clamp(28px,5vw,72px);display:grid;grid-template-columns:minmax(0,1fr) minmax(330px,420px);align-items:center;gap:clamp(32px,7vw,120px)}
+.pv-brand{align-self:center;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;text-shadow:0 1px 18px #f6f2e988}
+.pv-mark{width:82px;height:82px;color:#1f5051;margin:0 0 10px}
+.pv-brand h1{font-size:clamp(3.4rem,7vw,6.6rem);line-height:1.04;letter-spacing:-.075em;margin:0 0 18px;font-weight:800}
+.pv-brand p{font-size:clamp(1rem,1.5vw,1.2rem);line-height:1.5;letter-spacing:.01em;margin:0;color:#27494d;font-weight:600}
+.pv-kicker{border:1px solid #20434750;border-radius:999px;padding:7px 14px;margin-bottom:clamp(40px,8vw,100px);background:#f7f5ec99;font-size:.68rem;letter-spacing:.13em;text-transform:uppercase;font-weight:800}
+.pv-panel{width:100%;padding:clamp(26px,4vw,42px);border:1px solid #f4f3e477;border-radius:28px;background:#153b3fc9;box-shadow:0 24px 75px #092b3270;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);color:var(--pv-milk)}
+.pv-overline{font-size:.7rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#d3dfd9}
+.pv-panel h2{font-size:clamp(1.7rem,3vw,2.2rem);line-height:1.15;margin:12px 0 8px;letter-spacing:-.04em;color:#fffdf4}
+.pv-intro{color:#d7e1db;font-size:.85rem;margin:0 0 26px;line-height:1.5}
+.pv-form{display:grid;gap:10px}
+.pv-form label{font-size:.76rem;color:#edf2ec;font-weight:700;margin-top:5px}
+.pv-form input{width:100%;min-height:52px;border:1px solid #f2f1e361;border-radius:13px;background:#e4edea29;color:white;padding:12px 15px;outline:none}
+.pv-form input::placeholder{color:#dde8e3bd}
+.pv-form input:focus{border-color:#f4f0de;box-shadow:0 0 0 3px #f4f0de48}
+.pv-password{position:relative}.pv-password input{padding-right:85px}
+.pv-password button{position:absolute;right:7px;top:5px;min-width:70px;min-height:42px;padding:0 8px;border:0;border-radius:9px;background:transparent;color:#f1f4ee;font-size:.72rem;font-weight:700}
+.pv-password button:hover,.pv-password button:focus-visible{background:#ffffff29}
+.pv-submit{min-height:54px;border:0;border-radius:14px;background:#f4f2e9;color:#14383c;font-weight:800;margin-top:15px;padding:12px 18px;display:flex;justify-content:center;align-items:center;gap:14px;transition:transform .2s,background .2s}
+.pv-submit:hover{background:white;transform:translateY(-2px)}.pv-submit:disabled{opacity:.7;cursor:wait;transform:none}
+.pv-submit span{font-size:1.3rem;font-weight:400}
+.pv-error{margin:3px 0 0;color:#fff3e8;font-size:.82rem;background:#733f39b8;padding:10px;border-radius:9px}
+.pv-register{font-size:.77rem;text-align:center;color:#dce7e0;margin:13px 0 0}
+.pv-register a{color:#fffdf2;text-decoration:underline;text-underline-offset:3px;font-weight:800}
+.pv-back{position:absolute;left:clamp(28px,5vw,72px);bottom:clamp(20px,3vw,34px);color:#fffdf0;font-size:.76rem;text-decoration:underline;text-underline-offset:4px;text-shadow:0 1px 6px #0b3034}
+.pv-back:hover{color:#fff}

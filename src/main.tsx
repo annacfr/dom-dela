@@ -9,5 +9,7 @@ import './stili/dom.css';
 import './stili/kalendar.css';
 import './stili/chat.css';
 import './stili/adaptiv.css';
+import './stili/probaVhoda.css';
+import './stili/probaVhodaAdaptiv.css';
 createRoot(document.getElementById('root')!).render(<React.StrictMode><App /></React.StrictMode>);
 if ('serviceWorker' in navigator && import.meta.env.PROD) window.addEventListener('load', () => navigator.serviceWorker.register(`${import.meta.env.BASE_URL}sw.js`));
