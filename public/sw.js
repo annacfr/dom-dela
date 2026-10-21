@@ -1,5 +1,5 @@
 const CACHE = 'dom-dela-v1';
-const ROOT = '/dom-dela/';
+const ROOT = new URL('./', self.location.href).pathname;
 self.addEventListener('install', event => { event.waitUntil(caches.open(CACHE).then(cache => cache.addAll([ROOT, `${ROOT}index.html`, `${ROOT}icon.svg`, `${ROOT}manifest.webmanifest`]))); self.skipWaiting(); });
 self.addEventListener('activate', event => { event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key !== CACHE).map(key => caches.delete(key))))); self.clients.claim(); });
 self.addEventListener('fetch', event => {
