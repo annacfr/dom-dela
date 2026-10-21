@@ -1,6 +1,8 @@
 import { getData, setData } from './khranilishche';
 import { history, notify } from './zapisi';
+import { vOblake } from './oblachnyeDeystviya';
 export const proveritBroni = () => {
+  if (vOblake()) return;
   const d = getData(), familyId = d.users.find(u => u.id === d.currentUserId)?.familyId;
   const expired = d.tasks.filter(t => t.familyId === familyId && t.status === 'reserved' && t.reservedUntil && new Date(t.reservedUntil).getTime() <= Date.now());
   if (!expired.length) return;

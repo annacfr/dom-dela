@@ -7,5 +7,5 @@ export const primer = (): Dannye => ({
   tasks: [task('kitchen', 'Убрать кухню', 'Уборка', 0, 20, ['anya']), task('trash', 'Вынести мусор', 'Дом', 0, 10, 'open'), task('plants', 'Полить растения', 'Растения', 0, 7, ['masha']), task('dishes', 'Загрузить посудомойку', 'Кухня', 1, 15, ['maksim']), task('things', 'Разобрать вещи', 'Уборка', 2, 20, 'all')],
   events: [{ id: 'dinner', familyId: 'dom', title: 'Семейный ужин', date: segodnya(), time: '19:00', type: 'Встреча' }, { id: 'walk', familyId: 'dom', title: 'Прогулка в парке', date: sdvig(3), time: '12:00', type: 'Прогулка' }],
   messages: [{ id: 'hello', familyId: 'dom', userId: 'anya', text: 'Доброе утро! Что сегодня успеем сделать?', at: new Date().toISOString() }, { id: 'reply', familyId: 'dom', userId: 'maksim', text: 'Я возьму посудомойку завтра.', at: new Date().toISOString() }],
-  history: [], notifications: [], requests: [], currentUserId: 'anya', settings: { reminders: true }
+  history: [], notifications: [], requests: [], currentUserId: undefined, settings: { reminders: true }
 });

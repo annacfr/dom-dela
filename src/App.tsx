@@ -1,5 +1,9 @@
 import { HashRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { useData } from './api/khranilishche';
+import { useCloudStatus } from './api/khranilishche';
+import { nachatOblako, obnovitOblako } from './api/oblachnayaSessiya';
+import { vyhod } from './api/uchetnyeZapisi';
+import { useEffect } from 'react';
 import { Obolochka } from './komponenty/obolochka';
 import { Vhod } from './stranitsy/vhod';
 import { Registratsiya } from './stranitsy/registratsiya';
@@ -15,8 +19,10 @@ import { Semya } from './stranitsy/semya';
 import { Uvedomleniya } from './stranitsy/uvedomleniya';
 import { Istoriya } from './stranitsy/istoriya';
 export default function App() {
-  const data = useData(), user = data.users.find(u => u.id === data.currentUserId);
-  return <HashRouter><Routes>
+  const data = useData(), status = useCloudStatus(), user = data.users.find(u => u.id === data.currentUserId);
+  useEffect(() => { void nachatOblako(); }, []);
+  if (status.loading) return <div className="setup" role="status">Загружаем семейный дом…</div>;
+  return <HashRouter>{status.error && <div className="cloud-error" role="alert">{status.error} <button onClick={() => void obnovitOblako()}>Повторить</button>{status.cloud && <button onClick={() => void vyhod()}>Выйти</button>}</div>}<Routes>
     <Route path="/vhod" element={user ? <Navigate to="/" /> : <Vhod />} />
     <Route path="/registratsiya" element={user ? <Navigate to="/nastroyka" /> : <Registratsiya />} />
     {!user ? <Route path="*" element={<Navigate to="/vhod" />} /> : !user.familyId ? <><Route path="/nastroyka" element={<Nastroyka />} /><Route path="*" element={<Navigate to="/nastroyka" />} /></> :
