@@ -1,7 +1,7 @@
 name: Publish Dom Dela
 on:
   push:
-    branches: [main]
+    branches: [main, feature/supabase-cloud]
   workflow_dispatch:
 permissions:
   contents: read
@@ -22,6 +22,12 @@ jobs:
         with:
           node-version: 24
       - run: npm ci
+      - name: Check Supabase configuration
+        if: github.ref_name == 'feature/supabase-cloud'
+        env:
+          VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ vars.VITE_SUPABASE_PUBLISHABLE_KEY }}
+        run: test -n "$VITE_SUPABASE_URL" && test -n "$VITE_SUPABASE_PUBLISHABLE_KEY"
       - run: npm run build
         env:
           VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
