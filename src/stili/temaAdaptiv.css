@@ -1,0 +1,15 @@
+@media(max-width:760px){
+  .app-shell{background:linear-gradient(#e9f0ecdd,#e9f0eceb),url('../assets/lesnoyPeyzazh.jpg') center/cover fixed}
+  .menu{height:calc(72px + env(safe-area-inset-bottom));padding:5px 7px max(5px,env(safe-area-inset-bottom));background:#eef4efea;border-top:1px solid #ffffffd8;box-shadow:0 -10px 28px #183d3d22;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+  .menu-link{color:#446761;font-size:.64rem;min-height:55px}
+  .menu-link.active{background:#376960;color:#fff;box-shadow:0 4px 14px #1b4e4840}
+  .topbar{background:#f5f8f1d0}
+  main{padding-bottom:calc(105px + env(safe-area-inset-bottom))}
+  .house-scene{min-height:330px}
+  .home-intro{gap:14px;flex-direction:column;align-items:stretch}
+  .home-intro .button{align-self:flex-start}
+  .task-card{padding:15px}
+  .chat-panel{height:max(280px,calc(100dvh - 320px));min-height:0}
+}
+@media(max-width:375px){.menu-link{font-size:.58rem}.menu-link svg{width:20px;height:20px}.panel{padding:16px}.stat-tile{padding:14px}.top-brand span{display:none}}
+@media(prefers-reduced-motion:reduce){.task-card,.house-scene,.menu-link{transition:none}}

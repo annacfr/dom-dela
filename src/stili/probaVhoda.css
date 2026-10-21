@@ -25,5 +25,9 @@
 .pv-error{margin:3px 0 0;color:#fff3e8;font-size:.82rem;background:#733f39b8;padding:10px;border-radius:9px}
 .pv-register{font-size:.77rem;text-align:center;color:#dce7e0;margin:13px 0 0}
 .pv-register a{color:#fffdf2;text-decoration:underline;text-underline-offset:3px;font-weight:800}
-.pv-back{position:absolute;left:clamp(28px,5vw,72px);bottom:clamp(20px,3vw,34px);color:#fffdf0;font-size:.76rem;text-decoration:underline;text-underline-offset:4px;text-shadow:0 1px 6px #0b3034}
-.pv-back:hover{color:#fff}
+.pv-demo{margin-top:18px;padding-top:14px;border-top:1px solid #f3f4eb5c;color:#e6efe9;font-size:.75rem}
+.pv-demo summary{cursor:pointer;min-height:44px;display:flex;align-items:center;justify-content:center;text-decoration:underline;text-underline-offset:3px;font-weight:700}
+.pv-demo p{text-align:center;margin:6px 0 10px}
+.pv-demo-users{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.pv-demo-users button{min-width:0;min-height:58px;border:1px solid #ffffff6a;border-radius:12px;background:#ffffff19;color:white;display:grid;justify-items:center;gap:4px;padding:7px 3px;font-size:.68rem}
+.pv-demo-users button:hover{background:#ffffff36}

@@ -1,9 +1,17 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { vhod, vhodDemo } from '../api/uchetnyeZapisi';
-import { useData } from '../api/khranilishche';
-import { cloudReady } from '../api/supabase';
+import { ProbaZnak } from '../komponenty/probaZnak';
+import { ProbaFormaVhoda } from '../komponenty/probaFormaVhoda';
+import { ProbaDemo } from '../komponenty/probaDemo';
 export function Vhod() {
-  const d = useData(), [name, setName] = useState(''), [password, setPassword] = useState(''), [error, setError] = useState('');
-  return <div className="auth-layout"><div className="auth-art"><div className="auth-logo">⌂</div><h1>Дом дела</h1><p>Маленький общий мир для больших и маленьких домашних дел.</p></div><div className="auth-card"><p className="eyebrow">Рады видеть вас дома</p><h2>Войти</h2><form onSubmit={async e => { e.preventDefault(); setError(await vhod(name, password)); }}><label>{cloudReady ? 'Email или имя локального аккаунта' : 'Имя'}<input value={name} onChange={e => setName(e.target.value)} required autoComplete="username" /></label><label>Пароль<input type="password" value={password} onChange={e => setPassword(e.target.value)} required autoComplete="current-password" /></label>{error && <p className="error" role="alert">{error}</p>}<button className="button full">Войти</button></form><p>Нет аккаунта? <Link to="/registratsiya">Зарегистрироваться</Link></p><div className="demo-box"><strong>Попробовать демо</strong><p>Выберите участника семьи Соколовых. Данные сохранятся в этом браузере.</p><div className="demo-users">{d.users.filter(u => u.familyId === 'dom' && !u.hash).map(u => <button key={u.id} onClick={() => void vhodDemo(u.id)} className="demo-person"><span className="avatar small">{u.avatar}</span><span>{u.name}</span><small>{u.role === 'adult' ? 'Взрослый' : 'Ребёнок'}</small></button>)}</div></div></div></div>;
+  return <div className="pv-page"><div className="pv-scenery" aria-hidden="true" />
+    <main className="pv-shell"><div className="pv-brand">
+      <span className="pv-kicker">Вместе дома</span>
+      <ProbaZnak /><h1>Дом дела</h1>
+      <p>Маленькие дела.<br />Большое чувство дома.</p>
+    </div><section className="pv-panel" aria-labelledby="pv-title">
+      <span className="pv-overline">Рады видеть вас дома</span>
+      <h2 id="pv-title">Войти в семью</h2>
+      <p className="pv-intro">Продолжим заботиться о том, что важно — вместе.</p>
+      <ProbaFormaVhoda /><ProbaDemo />
+    </section></main>
+  </div>;
 }

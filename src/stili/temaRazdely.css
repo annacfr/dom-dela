@@ -1,0 +1,21 @@
+.calendar-grid button:hover{background:#dceae3}
+.calendar-grid button.today{color:#1c6356}
+.calendar-grid button.selected{background:#34645f;color:#fff}
+.calendar-grid button i{background:#d5a86b}
+.agenda-item time,.agenda-item a{color:#2a685d}
+.chat-panel{border-radius:24px}
+.bubble{background:#e7eee9;color:var(--ink)}
+.own .bubble{background:#cfe3d8}
+.system .bubble{background:#eff1e9}
+.chat-compose{background:#f7faf4d9;border-color:var(--line)}
+.bubble-meta time{color:var(--muted)}
+.house-scene{background:linear-gradient(180deg,#f4f3e89e,#d9e6deb0 62%,#9fbdafcc),url('../assets/lesnoyPeyzazh.jpg') center 55%/cover;border:1px solid #ffffffb3;box-shadow:var(--shadow)}
+.house-scene:before{background:#8ca99b9c;top:59%;height:16%}
+.house-scene:after{background:#769487b8;height:19%}
+.sky-orb{background:#f5e4b8a3;box-shadow:0 0 55px #f5e4b8a8}
+.house-svg{filter:drop-shadow(0 14px 12px #1439355c)}
+.house-caption{width:100%;background:linear-gradient(transparent,#eaf2eae8);color:#274f48}
+.house-caption-title{color:var(--ink)}
+.house-scene.mood-напряжённо,.house-scene.mood-конфликт,.house-scene.mood-тяжело{filter:saturate(.72) hue-rotate(10deg)}
+.house-scene.mood-восстановление{filter:saturate(.88)}
+.house-scene.mood-хорошо{filter:saturate(1.08)}

@@ -1,0 +1,24 @@
+.app-shell{background:linear-gradient(110deg,#e9f0eccf,#e9f0ecee 65%),url('../assets/lesnoyPeyzazh.jpg') center/cover fixed;min-height:100dvh}
+.menu{background:#173d3be8;border-right:1px solid #edf5ee4f;box-shadow:12px 0 36px #0d303124;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.brand{color:#f4f5ec;letter-spacing:-.05em}
+.menu-link{color:#d2e0d8;border:1px solid transparent}
+.menu-link:hover{background:#ffffff20;color:white}
+.menu-link.active{background:#f1f5edeb;color:#1d504b;box-shadow:0 8px 24px #082b2b30}
+.topbar{background:#f8faf5b8;border-bottom:1px solid #ffffffbc;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.top-brand{color:var(--ink);letter-spacing:-.045em}.top-brand span{color:var(--muted)}
+.main-wrap{max-width:1500px}
+main{max-width:1400px}
+.page-heading h1,.home-intro h1{font-size:clamp(1.9rem,3.6vw,3.1rem)}
+.page-heading p,.home-intro p{color:var(--muted)}
+.section-title a{color:var(--clay-dark)}
+.wave{color:#c8975c}
+.metrics strong{color:var(--ink)}
+.deadline{border-color:var(--line)}.deadline b{color:var(--ink)}
+.stats-link{background:#1c504bdc;color:#f8faf3;border-color:#ffffff53}.stats-link strong{color:#f2efe2}
+.stats-link:hover{background:#17423e;color:white}
+.home-side .summary,.home-side .mood-panel{background:#1d504bd9;border-color:#e9f3e579;color:#f9fbf4}
+.home-side .summary h2,.home-side .summary strong,.home-side .mood-panel h2{color:#fffdf5}
+.home-side .summary span,.home-side .summary .deadline,.home-side .mood-panel .muted{color:#d6e6df}
+.home-side .summary .section-title a,.home-side .mood-panel .section-title span{color:#f2f4e9}
+.home-side .summary .deadline b{color:white}
+.home-side .mood-panel select{background:#f8faf5;color:var(--ink)}

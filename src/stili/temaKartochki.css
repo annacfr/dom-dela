@@ -1,0 +1,25 @@
+.task-card{border-radius:20px;box-shadow:0 12px 30px #153e3d18}
+.tasks-list{grid-template-columns:1fr;max-width:900px}
+.task-card{padding:18px;align-items:center}
+.task-actions{margin-top:12px}
+.task-card:hover{box-shadow:0 18px 38px #153e3d2d}
+.task-icon{background:#dceae3;color:#346b5e;border-radius:15px}
+.task-top strong{color:var(--clay-dark)}
+.task-meta span{background:#e6eeea;color:#3f625c}
+.tabs{background:#c9d9d2a8;border:1px solid #ffffff89;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.tabs button{color:#3f625e;min-height:44px}
+.tabs button:hover{background:#ffffff8c}
+.tabs button.selected{background:#f9faf4;color:#194943;box-shadow:0 5px 16px #173e3c20}
+.stat-tile{border-radius:20px}
+.stat-grid{gap:14px}
+.stat-tile strong{color:#245a52}
+.bar-track{background:#dce8e1}.bar-track div{background:#6d9589}
+.activity.unread{border-color:#7ea89a}
+.activity-mark{background:#dceae4;color:#2f695c}
+.member-load{border-color:var(--line)}
+.badge{color:#6e8178}.badge span{background:#dbe8e1}
+.badge.earned{color:#846844}.badge.earned span{background:#f2e5c9}
+.profile-links a:hover{background:#e2ede8}
+.invite-code{background:#e3eee8}
+.member-options label,.days label{background:#e5efe9}
+.assignees{border-color:var(--line)}

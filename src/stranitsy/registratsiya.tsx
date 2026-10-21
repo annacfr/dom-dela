@@ -1,9 +1,32 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { registratsiya } from '../api/uchetnyeZapisi';
-import type { Rol } from '../tipy/tipy';
 import { cloudReady } from '../api/supabase';
+import { ProbaZnak } from '../komponenty/probaZnak';
+import type { Rol } from '../tipy/tipy';
 export function Registratsiya() {
-  const [name, setName] = useState(''), [email, setEmail] = useState(''), [password, setPassword] = useState(''), [role, setRole] = useState<Rol>('adult'), [message, setMessage] = useState('');
-  return <div className="auth-layout"><div className="auth-art"><div className="auth-logo">⌂</div><h1>Начнём вместе</h1><p>Семейные дела становятся легче, когда всё на виду.</p></div><div className="auth-card"><p className="eyebrow">Новый участник</p><h2>Регистрация</h2><form onSubmit={async e => { e.preventDefault(); setMessage(await registratsiya(name, password, role, email)); }}><label>Имя<input value={name} onChange={e => setName(e.target.value)} minLength={2} required autoComplete="name" /></label>{cloudReady && <label>Email<input type="email" value={email} onChange={e => setEmail(e.target.value)} required autoComplete="email" /></label>}<label>Пароль<input type="password" value={password} onChange={e => setPassword(e.target.value)} minLength={8} required autoComplete="new-password" /></label><label>Роль<select value={role} onChange={e => setRole(e.target.value as Rol)}><option value="adult">Взрослый</option><option value="child">Ребёнок</option></select></label>{message && <p className="notice" role="status">{message}</p>}<button className="button full">Создать аккаунт</button></form><p>Уже есть аккаунт? <Link to="/vhod">Войти</Link></p><small className="muted">{cloudReady ? 'Облачный аккаунт: email нужен для входа.' : 'Локальный демо-режим.'}</small></div></div>;
+  const [name, setName] = useState(''), [email, setEmail] = useState('');
+  const [password, setPassword] = useState(''), [confirm, setConfirm] = useState('');
+  const [role, setRole] = useState<Rol>('adult'), [message, setMessage] = useState(''), [pending, setPending] = useState(false);
+  return <div className="pv-page"><div className="pv-scenery" aria-hidden="true" />
+    <main className="pv-shell pv-register-shell"><div className="pv-brand"><span className="pv-kicker">Начнём вместе</span>
+      <ProbaZnak /><h1>Дом дела</h1><p>Место, где каждый вклад важен.</p></div>
+      <section className="pv-panel pv-register-panel"><span className="pv-overline">Новый участник</span>
+        <h2>Создать аккаунт</h2><p className="pv-intro">Пара шагов — и вы дома.</p>
+        <form className="pv-form" onSubmit={async event => {
+          event.preventDefault(); if (password !== confirm) { setMessage('Пароли не совпадают.'); return; }
+          setPending(true); setMessage(await registratsiya(name, password, role, email)); setPending(false);
+        }}>
+          <label htmlFor="rg-name">Имя</label><input id="rg-name" value={name} onChange={e => setName(e.target.value)} minLength={2} autoComplete="name" required />
+          {cloudReady && <><label htmlFor="rg-email">Электронная почта</label><input id="rg-email" type="email" value={email} onChange={e => setEmail(e.target.value)} autoComplete="email" required /></>}
+          <label htmlFor="rg-password">Пароль</label><input id="rg-password" type="password" value={password} onChange={e => setPassword(e.target.value)} minLength={8} autoComplete="new-password" required />
+          <label htmlFor="rg-confirm">Подтвердить пароль</label><input id="rg-confirm" type="password" value={confirm} onChange={e => setConfirm(e.target.value)} minLength={8} autoComplete="new-password" required />
+          <fieldset className="pv-role"><legend>Роль в семье</legend>{(['adult', 'child'] as Rol[]).map(value => <label key={value} className={role === value ? 'active' : ''}>
+            <input type="radio" name="role" value={value} checked={role === value} onChange={() => setRole(value)} />{value === 'adult' ? 'Взрослый' : 'Ребёнок'}
+          </label>)}</fieldset>
+          {message && <p className="pv-error" role="status">{message}</p>}
+          <button className="pv-submit" disabled={pending}>{pending ? 'Создаём…' : 'Зарегистрироваться'} <span aria-hidden="true">→</span></button>
+        </form><p className="pv-register">Уже есть аккаунт? <Link to="/vhod">Войти</Link></p>
+      </section></main>
+  </div>;
 }
